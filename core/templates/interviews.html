@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  {% if user.is_staff %}
+  <div class="d-flex flex-row-reverse mt-5">
+    <div><a href="{% url 'add_interview' %}" type="button" class="btn btn-outline-success">Add Interview</a></div>
+  </div>
+  {% endif %}
+  
+
+    <div class="mt-2">
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Client Name</th>
+        <th scope="col">Interview Date</th>
+        <th scope="col">Interviewer Name</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for interview in interviews %}
+                
+        <tr onclick='window.location="{% url "interview_page"  interview_id=interview.id %}";'>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ interview.client_name }}</td>
+            <td>{{ interview.start_date }}</td>
+            <td>{{ interview.interviewer_name }}</td>
+          </tr>
+
+        {% endfor %}
+        
+      
+    </tbody>
+  </table>
+  </div>
+  </div>
+    
+
+{% endblock content %}
