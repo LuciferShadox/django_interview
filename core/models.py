@@ -41,6 +41,11 @@ class UserManager(BaseUserManager):
         return user
 
 
+CLIENT ="CL"
+AGENT = "AG"
+MY_COMPANY = "CO"
+ACCESS_CONTROL_CHOICES = [(CLIENT,"Client"),(AGENT,"Agent"),(MY_COMPANY,"My_Company")]
+
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(db_index=True, max_length=255, unique=True)
     name = models.CharField(max_length=254, null=True, blank=True)
@@ -50,6 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(auto_now_add=True,null=True, blank=True)
     last_login = models.DateTimeField(null=True, blank=True,auto_now_add=True)
+    access_control =  models.CharField(max_length=2,choices=ACCESS_CONTROL_CHOICES,blank=True)
 
 
     
@@ -90,6 +96,7 @@ class Interview(models.Model):
     accessible_users = models.ManyToManyField(User)
     name = models.CharField(max_length=100,blank=True)
     description = models.TextField(null=True,blank=True)
+
     def __str__(self) -> str:
         return f"{self.client_name} --> interviewed by {self.interviewer_name} on {self.start_date}"
     
@@ -99,13 +106,13 @@ class Interview(models.Model):
 
     
 class UserInterview(models.Model):
-    CLIENT ="CL"
-    AGENT = "AG"
-    MY_COMPANY = "CO"
-    ACCESS_CONTROL_CHOICES = [(CLIENT,"Client"),(AGENT,"Agent"),(MY_COMPANY,"My_Company")]
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    interview = models.ForeignKey(Interview,on_delete=models.CASCADE)
-    access_control =  models.CharField(max_length=2,choices=ACCESS_CONTROL_CHOICES)
-
+    interview = models.ForeignKey(Interview,on_delete=models.CASCADE)    
     def __str__(self) -> str:
         return f"{self.user.name}  {self.interview.name}"
+    
+    def get_user_name(self):
+        return self.user.name
+
+    def get_user_role(self):
+        return self.user.access_control

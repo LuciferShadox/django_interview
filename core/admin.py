@@ -8,7 +8,7 @@ admin.site.register(Interview)
 
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'name', )}),
+        (None, {'fields': ('email', 'password', 'name', 'access_control')}),
         ('Permissions', {'fields': (
             'is_active', 
             'is_staff', 
@@ -27,7 +27,7 @@ class UserAdmin(BaseUserAdmin):
         ),
     )
 
-    list_display = ('email','name', 'is_staff', 'last_login')
+    list_display = ('email','name', 'is_staff','access_control', 'last_login')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('email',)
     ordering = ('email',)

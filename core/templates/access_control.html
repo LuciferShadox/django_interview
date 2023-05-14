@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+  
+      <div class="mt-2">
+        <a class="link-secondary" href="{% url 'interview_page' interview_id=interview_id %}"><span class="ml-3 text-secondary"><- Go back</span></a>
+  <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">User Name</th>
+          <th scope="col">User Role</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for user in interview_users %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              {% if user.get_user_name %} 
+              <td>{{ user.get_user_name }}</td>
+              {% else %}
+              <td>{{ user.user.username }}</td>
+              {% endif %}
+              <td>{{ user.user.get_access_control_display }}</td>
+              <td><a href="{% url 'remove_access' userinterview_id=user.id %}"><i class="fa fa-trash-o" style="font-size:18px;color:red"></i></a></td>
+            </tr>
+          {% endfor %}
+          
+        
+      </tbody>
+    </table>
+    {% if user.access_control == "AG" or user.access_control == "CO" %}
+        
+    <div class="d-flex flex-row-reverse" style="gap:20px;">
+    <div><button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#AddUser">Add User</button></div>
+    <!-- Button trigger modal -->
+    </div>
+    {% endif %}
+    </div>
+    </div>
+
+    {% include "add_access_user.html" %}    
+
+    
+
+    
+    
+{% endblock content %}

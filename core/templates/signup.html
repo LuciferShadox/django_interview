@@ -33,10 +33,18 @@
                 <!-- <label class="form-label" for="typePasswordX-2">Password</label> -->
                 <input type="password" id="typePasswordX-2" name="password" class="form-control form-control-lg" placeholder="Password"/>
             </div>
-              <div class="form-outline mb-4">
-                <!-- <label class="form-label" for="typePasswordVerifyX-2">Password</label> -->
-                <input type="password" id="typePasswordVerifyX-2" name="password_verify" class="form-control form-control-lg" placeholder="Re-type Password"/>
-              </div>
+            <div class="form-outline mb-4">
+              <!-- <label class="form-label" for="typePasswordVerifyX-2">Password</label> -->
+              <input type="password" id="typePasswordVerifyX-2" name="password_verify" class="form-control form-control-lg" placeholder="Re-type Password"/>
+            </div>
+            <div class="form-outline mb-4">
+              <!-- <label class="form-label" for="typePasswordVerifyX-2">Password</label> -->
+              <select class="form-select" aria-label=".form-select-lg example" name="role" >
+                <option selected>Choose Role</option>
+                <option value="CL">Client</option>
+                <option value="AG">Agent</option>
+              </select>
+            </div>
               {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
             {% endif %}

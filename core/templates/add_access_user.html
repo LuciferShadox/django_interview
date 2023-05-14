@@ -1,0 +1,33 @@
+<!-- Modal -->
+<div class="modal fade" id="AddUser" tabindex="-1" aria-labelledby="AddUserLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="AddUserLabel">Add User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="access_form_id" name="access_form" method="POST" action="{% url 'show_access_control' interview_id=interview_id  %}">
+            {% csrf_token %}
+            <select class="form-select" name="user_id">
+                <option selected>Choose User</option>
+                {% for user in users %}
+                 <option value="{{ user.id }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>
+           </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <a href="{% url 'register' %}?next={{ request.path }}" class="btn btn-primary" >Create New User</a>
+          <button type="button" class="btn btn-primary" form="access_form" onclick="submitForm()">Add User</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function submitForm() {
+        document.getElementById('access_form_id').submit();
+    }
+    </script>
