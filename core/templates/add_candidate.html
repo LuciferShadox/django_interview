@@ -33,6 +33,14 @@
                         </select>
                     </div>
 
+                    <div class="form-outline mb-4">
+                        <select class="form-select js-example-tags" name="category">
+                            {% for category in categories %}
+                            <option value="{{ category.name }}">{{ category.name }}</option>
+                            {% endfor %}    
+                        </select>
+                    </div>
+
                     
                     <div class="form-check form-switch mb-4">
                         <input class="form-check-input" type="checkbox" value="True" id="medical_issued" name="medical_issued" >
@@ -62,5 +70,16 @@
         </div>
     </div>
 </section>
+<script>
+    $(document).ready(function() {
+            $(".js-example-tags").select2({
+                tags: true,
+                placeholder: "Choose Category",
+                allowClear: true
+            });
+        });
+
+</script>
+
 
 {% endblock content %}

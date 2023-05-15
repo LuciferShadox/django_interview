@@ -13,8 +13,12 @@
         <th scope="col">Last Name</th>
         <th scope="col">Nationality</th>
         <th scope="col">Passport Number</th>
+        <th scope="col">Category</th>
         <th scope="col">Visa Issud</th>
         <th scope="col">Medical Issud</th>
+        {% if user.access_control == 'CO' %}
+        <th scope="col">Agent</th>
+        {% endif %}
       </tr>
     </thead>
     <tbody>
@@ -25,8 +29,12 @@
             <td>{{ candidate.last_name }}</td>
             <td>{{ candidate.nationality.name }}</td>
             <td>{{ candidate.passport_no }}</td>
+            <td>{{ candidate.category.name }} </td>
             <td>{% if candidate.visa_issued %}<span>&#10003;</span>{% else %}<span>&#10060;</span> {% endif %}</td>
             <td>{% if candidate.medical_issued %}<span>&#10003;</span>{% else %}<span>&#10060;</span> {% endif %}</td>
+            {% if user.access_control == 'CO' %}
+            <td>{{ candidate.created_by|title}} </td>
+            {% endif %}
             <td><i class="fa fa-trash-o" style="font-size:18px;color:red"></i></td>
           </tr>
         {% endfor %}

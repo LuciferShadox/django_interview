@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from core.models import Interview,Candidate,UserInterview,User
+from core.models import Interview,Candidate,Category
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages #import messages
 
@@ -15,6 +15,7 @@ def add_candidate(request,interview_id):
         last_name = request.POST["last_name"]
         nationality = request.POST["nationality"]
         passport_no = request.POST["passport_no"]
+        category_name = request.POST["category"]
         try:
             visa_issued = bool(request.POST["visa_issued"])
         except:
@@ -29,8 +30,14 @@ def add_candidate(request,interview_id):
         created_by = request.user.username
         candidate = Candidate(first_name=first_name,last_name=last_name,
                               nationality=nationality,passport_no=passport_no,
-                              visa_issued=visa_issued,medical_issued=medical_issued,
-                              cv_file_path=cv_file_path,created_by=created_by)
+                              visa_issued=visa_issued, medical_issued=medical_issued,\
+                               cv_file_path=cv_file_path,created_by=created_by)
+        try:
+            category = Category.objects.get(name = category_name)
+        except:
+            category = Category(name=category_name)
+            category.save()
+        candidate.category = category
         candidate.save()
         interview = Interview.objects.get(id=interview_id)
         interview.candidates.add(candidate)
@@ -38,7 +45,8 @@ def add_candidate(request,interview_id):
         logger.info("Candidate Added")
         return redirect("interview_page",interview_id)
     context ={
-        "interview_id": interview_id
+        "interview_id": interview_id,
+        "categories": Category.objects.all()
     }
     return render(request,"add_candidate.html",context)
 
@@ -46,9 +54,12 @@ def add_candidate(request,interview_id):
 @login_required
 def interview_page(request,interview_id):
     interview = Interview.objects.get(id=interview_id)
-    #TODO have to filter candidates based on creator 
-    candidates = interview.get_candidates()
-    # user_interview = UserInterview.objects.get(user=request.user,interview=interview_id)
+
+    if request.user.access_control == "CO" or  request.user.access_control == "CL" :
+        candidates = interview.get_candidates()
+    else:
+        candidates = interview.candidates.filter(created_by=request.user.username)
+    
     context={
         "candidates":candidates,
         "access": request.user.access_control,

@@ -71,6 +71,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 # Create your models here.
+
+    
+class Category(models.Model):
+    name = models.CharField(max_length=50,unique=True)
+    
+    def __str__(self) -> str:
+        return f"{self.name}"
+
 class Candidate(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -80,6 +88,7 @@ class Candidate(models.Model):
     medical_issued = models.BooleanField(default=False)
     created_by = models.CharField(max_length=254)
     cv_file_path = models.FileField()
+    category = models.ForeignKey(Category,blank=True,null=True,on_delete=models.PROTECT)
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"

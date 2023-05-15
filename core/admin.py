@@ -1,10 +1,11 @@
 from django.contrib import admin
-from core.models import Candidate,Interview,User
+from core.models import Candidate,Interview,User,Category
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 # Register your models here.
 admin.site.register(Candidate)
 admin.site.register(Interview)
+admin.site.register(Category)
 
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
