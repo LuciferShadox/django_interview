@@ -34,7 +34,7 @@ def add_access_control(request,interview_id):
         return render(request,'access_control.html',context=context)
             
     messages.warning(request,"You Dont Have Permission For this")
-    return redirect("interview")
+    return redirect("interviews")
 
 
 @login_required
@@ -51,5 +51,5 @@ def remove_access(request,userinterview_id):
             messages.info(request,"User has been deleted")
             return redirect('show_access_control',interview_id)
         
-    return redirect("interview_page")
+    return redirect("interview_page",interview_id)
 

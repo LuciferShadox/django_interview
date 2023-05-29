@@ -16,9 +16,9 @@ def list_interviews(request):
     if request.user.is_staff:
         interviews = Interview.objects.all()
     else:
-        interviews=None
+        user_interviews = UserInterview.objects.filter(user=request.user)
         # if user in interview.users
-        # check type of user
+        interviews = Interview.objects.filter(id__in=user_interviews.values_list('interview_id',flat=True))
         #then show the interviews
 
     

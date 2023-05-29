@@ -6,6 +6,7 @@
 - [x] Candidates Filter in view
 - [x] Add Category for candidates model
 - [X] Add access Control Feature
-- [ ] Filter Interviews
-- [ ] Fix File Upload Issue
+- [X] Filter Interviews
+- [X] Fix File Upload Issue
+- [X] Delete Candidate not working html
 - [ ] Add Dashboard

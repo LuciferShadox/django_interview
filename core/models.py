@@ -87,7 +87,7 @@ class Candidate(models.Model):
     visa_issued = models.BooleanField(default=False)
     medical_issued = models.BooleanField(default=False)
     created_by = models.CharField(max_length=254)
-    cv_file_path = models.FileField()
+    cv_file_path = models.FileField(upload_to="documents/")
     category = models.ForeignKey(Category,blank=True,null=True,on_delete=models.PROTECT)
 
     def __str__(self) -> str:

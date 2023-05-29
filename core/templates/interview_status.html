@@ -35,7 +35,7 @@
             {% if user.access_control == 'CO' %}
             <td>{{ candidate.created_by|title}} </td>
             {% endif %}
-            <td><i class="fa fa-trash-o" style="font-size:18px;color:red"></i></td>
+            <td><a href="{% url 'delete_candidate' interview_id=interview_id candidate_id=candidate.id %}"><i class="fa fa-trash-o" style="font-size:18px;color:red"></i></a></td>
           </tr>
         {% endfor %}
         

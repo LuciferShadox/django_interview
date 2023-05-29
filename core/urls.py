@@ -1,10 +1,13 @@
 from django.urls import path,include,re_path
 from django.contrib.auth import views as auth_views
-
 from .views import list_interviews,add_interview
 from .profile_views import login_view,register
-from .interview_status_view import interview_page,add_candidate
+from .interview_status_view import interview_page,add_candidate,delete_candidate
 from .access_control_views import add_access_control,remove_access
+
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 
 
@@ -19,5 +22,12 @@ urlpatterns = [
     re_path(r"^add-candidate/(?P<interview_id>\d+)/$",add_candidate,name="add_candidate"),
     re_path(r"^access-control/(?P<interview_id>\d+)/$",add_access_control,name="show_access_control"),
     re_path(r"^remove_access-control/(?P<userinterview_id>\d+)/$",remove_access,name="remove_access"),
-    
+    re_path(r"^delete_candidate/(?P<interview_id>\d+)/(?P<candidate_id>\d+)/$",
+            delete_candidate,name="delete_candidate"),
+            
 ]
+
+if settings.DEBUG :
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    

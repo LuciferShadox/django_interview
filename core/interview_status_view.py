@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from core.models import Interview,Candidate,Category
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages #import messages
+from django.core.files import File
 
 import logging
 
@@ -24,8 +25,7 @@ def add_candidate(request,interview_id):
             medical_issued = bool(request.POST["medical_issued"])
         except:
             medical_issued = False
-        
-        cv_file_path = request.POST["file"]
+        cv_file_path = request.FILES["file"]
         logger.info("Form Arguments are processed")
         created_by = request.user.username
         candidate = Candidate(first_name=first_name,last_name=last_name,
@@ -67,4 +67,19 @@ def interview_page(request,interview_id):
     }
 
     return render(request,"interview_status.html",context=context)
-# 
+
+
+#for candidate deleteion
+@login_required
+def delete_candidate(request,interview_id,candidate_id):
+    interview = Interview.objects.get(id=interview_id)
+    candidate = Candidate.objects.get(id=candidate_id)
+    if candidate.created_by==request.user.username:
+        interview.candidates.remove(candidate)
+        interview.save()
+        candidate.delete()
+        messages.success(request, "Deleted candidate")
+        logger.info("Deleted candidate")
+    else:
+        messages.info(request, "Cannot Delete candidate")
+    return redirect("interview_page",interview_id)

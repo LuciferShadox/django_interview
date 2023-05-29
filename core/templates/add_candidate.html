@@ -8,7 +8,7 @@
             <div class="col-12 col-md-8 col-lg-6 col-xl-5 ">
               <div class="card shadow" style="border-radius: 1rem;">
                 <div class="card-body p-5 ">
-                    <form method="POST" action="{% url 'add_candidate' interview_id=interview_id %}">
+                    <form method="POST" action="{% url 'add_candidate' interview_id=interview_id %}" enctype="multipart/form-data">
                         {% csrf_token %}
                     <h3 class="mb-5">Add New Candidate</h3>
                     <div class="form-outline mb-4">
@@ -55,11 +55,8 @@
                             Visa Issued
                         </label>
                     </div>
-
-
-
                     <div class="form-outline mb-4">
-                        <input type="file"  name="file" class="form-control form-control-lg" placeholder="Upload Resume" required>
+                        <input type="file"  name="file" class="form-control form-control-lg" placeholder="Upload Resume" accept=".pdf" required>
                     </div>
                     <button class="btn btn-primary btn-lg btn-block form-control" type="submit"> Submit </button>
                 </form>
