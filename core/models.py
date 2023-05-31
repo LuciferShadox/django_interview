@@ -125,3 +125,10 @@ class UserInterview(models.Model):
 
     def get_user_role(self):
         return self.user.access_control
+
+# class Message(models.Model):
+#     recipient = models.ForeignKey(User,on_delete=models.CASCADE)
+#     message = models.CharField(max_length=250)
+#     created_time = models.DateTimeField(auto_now_add=True)
+#     is_read = models.BooleanField(default=False)
+#     updated_time = models.DateTimeField(auto_now=True)

@@ -7,12 +7,14 @@ from .access_control_views import add_access_control,remove_access
 
 from django.conf import settings
 from django.conf.urls.static import static
+import notifications.urls
 
 
 
 
 
 urlpatterns = [
+
     path("interviews/",list_interviews,name='interviews'),
     path('login/',login_view, name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/login/'), name='logout'),
@@ -24,7 +26,8 @@ urlpatterns = [
     re_path(r"^remove_access-control/(?P<userinterview_id>\d+)/$",remove_access,name="remove_access"),
     re_path(r"^delete_candidate/(?P<interview_id>\d+)/(?P<candidate_id>\d+)/$",
             delete_candidate,name="delete_candidate"),
-            
+    re_path(r'^inbox/notifications/', include(notifications.urls, namespace='notifications')),      
+
 ]
 
 if settings.DEBUG :

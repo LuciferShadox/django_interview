@@ -2,6 +2,37 @@
 
 {% block content %}
 <div class="container">
+  <div class="card-body rounded p-5" style="background-color: rgb(253, 253, 253);">
+    <h2>Hello {{ request.user.username | title }},</h2>
+    {% load notifications_tags %}
+    {% notifications_unread as unread_count %}
+    {% if unread_count %}
+        You have <strong>{{ unread_count }}</strong> unread notifications.
+       
+        {% for notification in  notifications %}
+        <ul class="list-group">
+          <li class="list-group-item"><strong>{{ notification.verb }}</strong> <small>{{ notification.timesince }} ago</small></li>
+          <div class="d-none">{{ notification.mark_as_read }}</div>
+        </ul>
+    {% endfor %}
+    {% else %}
+    <strong class="ms-3">Latest notifications.</strong>
+    {% for notification in  notifications %}
+    <ul class="list-group">
+      <li class="list-group-item"><strong>{{ notification.verb }}</strong> <small>{{ notification.timesince }} ago</small></li>
+      <div class="d-none">{{ notification.mark_as_read }}</div>
+    </ul>
+      
+    {% endfor %}
+    
+    {% endif %}
+    {% if show_more %}
+     <a>Show all notifications</a>
+     {% endif %}
+
+  
+  </div>
+  <div class="card-body mt-5 rounded p-2" style="background-color: rgb(253, 253, 253);">
   {% if user.is_staff %}
   <div class="d-flex flex-row-reverse mt-5">
     <div><a href="{% url 'add_interview' %}" type="button" class="btn btn-outline-success">Add Interview</a></div>
@@ -26,7 +57,7 @@
             <th scope="row">{{ forloop.counter }}</th>
             <td>{{ interview.client_name }}</td>
             <td>{{ interview.start_date }}</td>
-            <td>{{ interview.interviewer_name }}</td>
+            <td>{{ interview.interviewer_name | title }}</td>
           </tr>
 
         {% endfor %}
@@ -34,6 +65,7 @@
       
     </tbody>
   </table>
+</div>
   </div>
   </div>
     

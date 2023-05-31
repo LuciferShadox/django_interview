@@ -9,4 +9,5 @@
 - [X] Filter Interviews
 - [X] Fix File Upload Issue
 - [X] Delete Candidate not working html
-- [ ] Add Dashboard
+- [x] Add Dashboard (Added it to interview page)
+- [ ] Fix Notifications for deleting candidate and updating access control

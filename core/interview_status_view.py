@@ -3,7 +3,7 @@ from core.models import Interview,Candidate,Category
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages #import messages
 from django.core.files import File
-
+from core.utils import notify_all_company_and_client_users
 import logging
 
 logger = logging.getLogger(__name__)
@@ -43,6 +43,8 @@ def add_candidate(request,interview_id):
         interview.candidates.add(candidate)
         interview.save()
         logger.info("Candidate Added")
+        message_to_send= f"{first_name} {last_name} added ."
+        notify_all_company_and_client_users(request.user,message_to_send,interview_id)
         return redirect("interview_page",interview_id)
     context ={
         "interview_id": interview_id,

@@ -20,10 +20,24 @@ def list_interviews(request):
         # if user in interview.users
         interviews = Interview.objects.filter(id__in=user_interviews.values_list('interview_id',flat=True))
         #then show the interviews
-
-    
+    show_more=False
+    unread_notifications = request.user.notifications.unread()
+    all_notifications = request.user.notifications.all()
+    if unread_notifications:
+        notifications = unread_notifications 
+        unread_count = len(unread_notifications)
+        if unread_count>5:
+            notifications=notifications[0:5]
+            show_more=True
+    else:
+        notifications = all_notifications
+        if len(all_notifications)>5:
+            notifications =notifications[0:5]
+            show_more=True
     context={
-        "interviews":interviews
+        "interviews":interviews,
+        "notifications":notifications,
+        "show_more":show_more
     }
     return render(request,"interviews.html",context=context)
 

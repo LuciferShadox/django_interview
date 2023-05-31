@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'notifications',
 
     "core", #main app for having all the views
     "django_countries", # for adding country
