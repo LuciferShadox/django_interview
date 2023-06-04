@@ -84,14 +84,26 @@ SITE_ID = 1
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+#Local Database
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
+# Railway database
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'URL': 'postgresql://postgres:JTxM7vGMCOucveRvy1yY@containers-us-west-45.railway.app:6716/railway',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'JTxM7vGMCOucveRvy1yY',
+        'HOST': 'containers-us-west-45.railway.app',
+        'PORT': 6716,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

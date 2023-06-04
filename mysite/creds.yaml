@@ -1,0 +1,7 @@
+
+'URL': 'postgresql://postgres:JTxM7vGMCOucveRvy1yY@containers-us-west-45.railway.app:6716/railway'
+'NAME': 'railway'
+'USER': 'postgres'
+'PASSWORD': 'JTxM7vGMCOucveRvy1yY'
+'HOST': 'containers-us-west-45.railway.app'
+'PORT': 6716
