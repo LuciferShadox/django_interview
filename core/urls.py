@@ -15,7 +15,7 @@ import notifications.urls
 
 urlpatterns = [
 
-    path("interviews/",list_interviews,name='interviews'),
+    path("/",list_interviews,name='interviews'),
     path('login/',login_view, name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/login/'), name='logout'),
     path('register/',register,name="register"),
