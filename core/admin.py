@@ -9,7 +9,7 @@ admin.site.register(Category)
 
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'name', 'access_control')}),
+        (None, {'fields': ('email','username' ,'password', 'name', 'access_control')}),
         ('Permissions', {'fields': (
             'is_active', 
             'is_staff', 

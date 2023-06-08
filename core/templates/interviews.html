@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
   <div class="card-body rounded p-5" style="background-color: rgb(253, 253, 253);">
-    <h2>Hello {{ request.user.username | title }},</h2>
+    <h2>Hello {% if request.user.username %}{{ request.user.username | title }} {% else %} {{ request.name }},</h2>
     {% load notifications_tags %}
     {% notifications_unread as unread_count %}
     {% if unread_count %}
